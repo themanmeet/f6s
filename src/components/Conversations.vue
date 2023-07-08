@@ -1,24 +1,22 @@
 <script>
 import Message from './Message.vue';
-import { mapState, mapGetters } from 'vuex';
-
-export default {
-  components: {
+import { mapState } from 'vuex';
+  
+  export default {
+      components: {
     Message
   },
-  computed: {
-    ...mapState(['conversation', 'currentUser']),
-    ...mapGetters(['getConversation']),
-    updatedConversation() {
-      return this.getConversation;
-    }
-  },
-};
+    computed: {
+      ...mapState(['conversation', 'currentUser']),
+    },
+  };
+
+
 </script>
 
 <template>
   <div class="conversation-wrapper">
-    <Message v-for="message in JSON.parse(updatedConversation)" :key="message.id" :message="message" :currentUser="JSON.parse(currentUser)" />
+    <Message v-for="message in conversation" :key="message.id" :message="message" :currentUser="currentUser" />
   </div>
 </template>
 

@@ -64,5 +64,5 @@ I think you can imagine what happens next 🙃`,
     },
 ];
 
-export const currentUser = JSON.stringify(bob);
-export const conversation = JSON.stringify(messages);
+export const currentUser = JSON.parse(JSON.stringify(bob));
+export const conversation = JSON.parse(JSON.stringify(messages));

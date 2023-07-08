@@ -1,27 +1,24 @@
-// store.js
 import { createStore } from 'vuex';
-import { conversation, currentUser } from './api/mock';
+import {conversation, currentUser} from '../src/api/mock';
 
-const store = createStore({
+export default createStore({
   state: {
-    conversation: conversation,
-    currentUser: currentUser
+    conversation: [...conversation],
+    currentUser: {...currentUser}
   },
   mutations: {
-    updateConversation(state, newConversation) {
-      state.conversation = [...state.conversation, newConversation];
+    ADD_REPLY(state, data) {
+      state.conversation.push(data);
     }
   },
   actions: {
-    addReply({ commit }, newConversation) {
-      commit('updateConversation', newConversation);
+    addReply({ commit }, data) {
+      commit('ADD_REPLY', data);
     }
   },
   getters: {
-    getConversation(state) {
+    allconversation(state) {
       return state.conversation;
-    }
-  }
+    },
+  },
 });
-
-export default store;

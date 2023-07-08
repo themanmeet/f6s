@@ -1,26 +1,45 @@
 <script>
-import { currentUser } from '../api/mock';
-import { mapState } from 'vuex';
-export default {
+
+import { mapState, mapActions } from 'vuex';
+  
+  export default {
     computed: {
-        ...mapState(['currentUser'])
+      ...mapState(['currentUser']),
     },
     data() {
-        return {
-        messageInput: ''
-        };
+      return {
+        messageInput: '',
+      };
     },
     methods: {
-        sendMessage() {
-            this.$store.dispatch('addReply', {
+      ...mapActions(['addReply']),
+      sendReply() {
+        if (this.messageInput) {
+          this.addReply({
             id: Math.random()*100,
-            from: currentUser,
+            from: this.currentUser,
             message: this.messageInput,
             date: `${new Date()}`,
         });
+        
+        // botReply
+        let botUser = JSON.parse(JSON.stringify(this.currentUser));
+        botUser.id = 25;
+        setTimeout(() => {
+          this.addReply({
+            id: Math.random()*100,
+            from: botUser,
+            message: 'Did they end up driving to the seaside and sleeping in the sun until they got severe sunburn like we did?',
+            date: `${new Date()}`,
+        });
+        }, 4000);
+
+        this.messageInput = '';
         }
-    }
-};
+      },
+    },
+  };
+
 </script>
 
 <template>
@@ -31,7 +50,7 @@ export default {
     v-model="messageInput"
     
     ></textarea>
-    <button class="send-message" @click="sendMessage">
+    <button class="send-message" @click="sendReply">
         <img src="../assets/plane.svg" alt="Image"  width="30" />
     </button>
 </div>

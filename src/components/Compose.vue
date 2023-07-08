@@ -45,10 +45,8 @@ import { mapState, mapActions } from 'vuex';
 <template>
  <div class="compose-area">
     <textarea name="" id="" class="message" rows="1"
-
-
+    placeholder="Type a message..."
     v-model="messageInput"
-    
     ></textarea>
     <button class="send-message" @click="sendReply">
         <img src="../assets/plane.svg" alt="Image"  width="30" />
